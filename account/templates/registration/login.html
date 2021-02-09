@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Вход{% endblock %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <div style="padding: 5% 30%;">
+        <div class="form">
+            <h1 class="text-center">Вход</h1>
+            <br>
+            {% if form.errors %}
+                <p>Пожалуйста, введите правильное имя пользователя и пароль. Учтите что оба поля могут быть чувствительны к регистру.</p>
+            {% else %}
+                <p>Используйте следующую форму для входа. Если у вас нет аккаунта, зарегистрируйтесь <a href="{% url "register" %}">здесь</a>.</p>
+            {% endif %}
+            <div class="login-form">
+                <form action="{% url 'login' %}" method="post">
+                    {{ form|crispy }}
+                    {% csrf_token %}
+                    <input type="hidden" name="next" value="{{ request.GET.next }}"/>
+                    <p><input type="submit" class="btn btn-primary" value="Войти"></p>
+                </form>
+                <p><a href="{% url "password_reset" %}">Забыли пароль?</a></p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

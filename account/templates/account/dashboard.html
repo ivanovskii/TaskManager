@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Доска{% endblock %}
+
+{% block content %}
+    <div style="padding: 3%;">
+        {% for list in lists %}
+        <div class="form" style="float: left; margin: 1%; min-width: 400px;">
+            <h5 class="text-center">
+                {{ list.title }}
+            </h5>
+            <hr>
+            {% for card in list.cards_set.all %}
+                <div class="form" style="margin: 2%;">
+                    <h5>
+                        {{ card.title }}
+                    </h5>
+                    <hr>
+                    <p>
+                        {{ card.content }}
+                    </p>
+                </div>
+            {% endfor %}
+        </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}

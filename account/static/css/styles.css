@@ -1,0 +1,20 @@
+.main-page-text{
+    padding: 14rem 1.5rem;
+    text-align: center;
+}
+
+.form{
+    padding: 20px;
+    border: 1px solid rgba(133, 133, 133, 0.295);
+    border-radius: 5px;
+}
+
+ul.menubar{
+    /*some fancy css*/
+    height:50px; /* is needed since it would collapse otherwise*/
+ }
+
+ ul.menubar > li{
+    float:left;
+    /* more fancy css */
+ }

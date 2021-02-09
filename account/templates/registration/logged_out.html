@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Вы вышли из аккаунта{% endblock %}
+{% block content %}
+    <div style="padding: 5% 30%;">
+        <div class="form">
+            <h1 class="text-center">Вы вышли из аккаунта</h1>
+            <br>
+            <p>
+                Вы успешно вышли из аккаунта. Вы можете <a href="{% url "login" %}">войти заново</a>
+            </p> 
+        </div>
+    </div>
+{% endblock %}

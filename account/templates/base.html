@@ -1,0 +1,44 @@
+{% load bootstrap4 %}
+{% load static %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{% block title %}{% endblock %}</title>
+        <link href="{% static "css/styles.css" %}" rel="stylesheet">
+    </head>
+    <body>
+        <!-- Grey with black text -->
+        <nav class="navbar navbar-expand-sm sticky-top navbar-dark bg-dark">
+            <a class="navbar-brand" href="/">TaskManager</a>
+                <ul class="navbar-nav">
+                    {% if request.user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url "dashboard" %}">Моя доска</a>
+                        </li>
+                    {% endif %}
+                    {% if request.user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url "logout" %}">Выйти</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url "login" %}">Войти</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </nav>
+        <div id="content">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </body>
+</html>

@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}Добро пожаловать{% endblock %}
+
+{% block content %}
+    <div style="padding: 5% 30%;">
+        <div class="form">
+            <h1 class="text-center">Привет, {{ new_user.first_name }}!</h1>
+            <br>
+            <p>Ваш аккаунт был успешно зарегистрирован. Сейчас вы можете <a href="{% url "login" %}">войти на сайт</a>.</p>
+        </div>
+    </div>
+{% endblock %}
