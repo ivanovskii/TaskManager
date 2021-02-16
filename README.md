@@ -14,7 +14,7 @@ docker-compose up
 ``` 
 
 Сервис будет запущен на `localhost:80`. Впоследствии, для удаления всех данных Docker из системы можно использовать
-команду `docker system prune -f -a`.
+команду `docker system prune -fa`.
 
 ## Запуск вручную
 
