@@ -3,7 +3,6 @@ version: "3.9"
 services:
   backend:
     environment:
-      - EXAMPLE_ENV=EXAMPLE
       - DJANGO_SUPERUSER_USERNAME=admin
       - DJANGO_SUPERUSER_PASSWORD=admin
     build: .
