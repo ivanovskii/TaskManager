@@ -4,8 +4,6 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
-# Create your models here.
-
 
 class Profile(models.Model):
     user = models.OneToOneField(
@@ -23,19 +21,7 @@ class Profile(models.Model):
         verbose_name = 'Профиль'
 
 
-@receiver(post_save, sender=User)
-def create_user_profile(sender, instance, created, **kwargs):
-    if created:
-        Profile.objects.create(user=instance)
-
-
-@receiver(post_save, sender=User)
-def save_user_profile(sender, instance, **kwargs):
-    instance.profile.save()
-
-
-class Cards(models.Model):
-
+class Card(models.Model):
     title = models.CharField(
         max_length=50,
         verbose_name='Заголовок',
@@ -47,8 +33,8 @@ class Cards(models.Model):
         verbose_name='Описание'
     )
 
-    list = models.ForeignKey(
-        'Lists',
+    ls = models.ForeignKey(
+        'List',
         null=True,
         on_delete=models.PROTECT,
         verbose_name='Список'
@@ -60,8 +46,7 @@ class Cards(models.Model):
         ordering = ['-title']
 
 
-class Lists(models.Model):
-
+class List(models.Model):
     title = models.CharField(
         max_length=50,
         verbose_name='Заголовок'
@@ -80,3 +65,16 @@ class Lists(models.Model):
     class Meta:
         verbose_name_plural = 'Списки'
         verbose_name = 'Список'
+
+
+# Signals:
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    instance.profile.save()
