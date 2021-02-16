@@ -7,7 +7,10 @@
 В репозитории выполните команду `docker-compose up`, уточнив логин, пароль и почту администратора, например
 
 ```
-DJANGO_SUPERUSER_USERNAME=admin DJANGO_SUPERUSER_PASSWORD=123456 DJANGO_SUPERUSER_EMAIL=daniel@demidko.com docker-compose up
+DJANGO_SUPERUSER_USERNAME=ivan \
+DJANGO_SUPERUSER_PASSWORD=123456 \
+DJANGO_SUPERUSER_EMAIL=ivan@ivanov.com \
+docker-compose up
 ``` 
 
 Сервис будет запущен на `localhost:80`
