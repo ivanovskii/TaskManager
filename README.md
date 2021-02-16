@@ -1,16 +1,18 @@
-# TaskManager
+# `TaskManager`
 
 Проект "Менеджер задач" для университетского предмета (7 семестр) "Технологии программирования"
 
-## Автоматизированное разворачивание
+## Запуск при помощи [`Docker Compose`](https://www.docker.com/products/docker-desktop)
 
-Способ отличается своей простотой, кроссплатформенностью, и тем что не замусоривает систему абсолютно никакими
-зависимостями.
+В репозитории выполните команду `docker-compose up`, уточнив логин, пароль и почту администратора, например
 
-1. Установить [`Docker`](https://www.docker.com/products/docker-desktop)
-1. запустить в репозитории команду `docker-compose up`
+```
+DJANGO_SUPERUSER_USERNAME=admin DJANGO_SUPERUSER_PASSWORD=123456 DJANGO_SUPERUSER_EMAIL=daniel@demidko.com docker-compose up
+``` 
 
-## Разворачивание сервиса вручную
+Сервис будет запущен на `localhost:80`
+
+## Запуск вручную
 
 ### Предустановка
 
