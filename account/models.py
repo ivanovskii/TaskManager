@@ -3,22 +3,7 @@ from django.conf import settings
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-
-
-class Profile(models.Model):
-    user = models.OneToOneField(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE,
-        verbose_name='Пользователь',
-        null=True,
-    )
-
-    def __str__(self):
-        return self.user.username
-
-    class Meta:
-        verbose_name_plural = 'Профили'
-        verbose_name = 'Профиль'
+from django.utils import timezone
 
 
 class Card(models.Model):
@@ -27,18 +12,41 @@ class Card(models.Model):
         verbose_name='Заголовок',
     )
 
-    content = models.TextField(
+    description = models.TextField(
         null=True,
         blank=True,
-        verbose_name='Описание'
+        verbose_name='Описание',
     )
 
+    status_choice = (
+        ('N', 'Не выполнено'),
+        ('W', 'В работе'),
+        ('Y', 'Выполнено'),
+    )
+
+    status = models.CharField(
+        max_length=1,
+        choices=status_choice,
+        default='N',
+        verbose_name='Статус',
+    )
+
+    date_end = models.DateField(
+        null=True,
+        blank=True,
+        default=timezone.now,
+        verbose_name='Срок',
+    )
+    
     ls = models.ForeignKey(
         'List',
         null=True,
-        on_delete=models.PROTECT,
-        verbose_name='Список'
+        on_delete=models.CASCADE,
+        verbose_name='Список',
     )
+
+    def __str__(self):
+        return self.title
 
     class Meta:
         verbose_name_plural = 'Карточки'
@@ -49,14 +57,13 @@ class Card(models.Model):
 class List(models.Model):
     title = models.CharField(
         max_length=50,
-        verbose_name='Заголовок'
+        verbose_name='Заголовок',
     )
     
-    profile = models.ForeignKey(
-        'Profile',
-        null=True,
-        on_delete=models.PROTECT,
-        verbose_name='Профиль'
+    board = models.ForeignKey(
+        'Board',
+        on_delete=models.CASCADE,
+        verbose_name='Доска',
     )
 
     def __str__(self):
@@ -65,6 +72,52 @@ class List(models.Model):
     class Meta:
         verbose_name_plural = 'Списки'
         verbose_name = 'Список'
+
+
+class Board(models.Model):
+    title = models.CharField(
+        max_length=50,
+        verbose_name='Заголовок',
+    )
+
+    creator = models.ForeignKey(
+        'Profile',
+        on_delete=models.CASCADE,
+        verbose_name='Создатель',
+    )
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name_plural = 'Доски'
+        verbose_name = 'Доска' 
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        verbose_name='Пользователь',
+        null=True,
+    )
+
+    cards = models.ManyToManyField(
+        Card,
+        verbose_name='Карточки',
+    )
+
+    boards = models.ManyToManyField(
+        Board,
+        verbose_name='Доски',
+    )
+
+    def __str__(self):
+        return self.user.username
+
+    class Meta:
+        verbose_name_plural = 'Профили'
+        verbose_name = 'Профиль'
 
 
 # Signals:
