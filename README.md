@@ -13,7 +13,8 @@ DJANGO_SUPERUSER_EMAIL=ivan@ivanov.com \
 docker-compose up
 ``` 
 
-Сервис будет запущен на `localhost:80`
+Сервис будет запущен на `localhost:80`. Впоследствии, для удаления всех данных Docker из системы можно использовать
+команду `docker system prune -f -a`.
 
 ## Запуск вручную
 
