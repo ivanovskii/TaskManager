@@ -1,0 +1,15 @@
+version: "3.9"
+
+services:
+  backend:
+    environment:
+      - DJANGO_SUPERUSER_USERNAME
+      - DJANGO_SUPERUSER_PASSWORD
+      - DJANGO_SUPERUSER_EMAIL
+    build: .
+    command: python manage.py runserver 0.0.0.0:80
+    volumes:
+      - .:/root
+    ports:
+      - "80:80"
+
