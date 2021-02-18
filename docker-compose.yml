@@ -7,9 +7,6 @@ services:
       - DJANGO_SUPERUSER_PASSWORD
       - DJANGO_SUPERUSER_EMAIL
     build: .
-    command: python manage.py runserver 0.0.0.0:80
-    volumes:
-      - .:/root
+    command: ./entrypoint.sh
     ports:
       - "80:80"
-
